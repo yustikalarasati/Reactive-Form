@@ -1,0 +1,160 @@
+<!-- <h2>Template-drive form</h2>
+<form (ngSubmit)="submit1()" #myForm="ngForm">
+  Nama:
+  <input #nama="ngModel" required type="text" name="nama" [(ngModel)]="formModel.nama"><br />
+
+  <p *ngIf="!nama.valid && nama.touched">Atribut nama harus diisi</p>
+
+  Umur:
+  <input #umur="ngModel" required type="text" name="umur" [(ngModel)]="formModel.umur"><br />
+
+  <p *ngIf="!umur.valid">Atribut umur harus diisi</p>
+
+  <button type="submit" [disabled]="!myForm.valid">Submit</button>
+</form>
+
+<h2>Isian form Anda</h2>
+Nama: {{nama.value}} <br />
+nama valid: {{nama.valid}} <br />
+nama touched: {{nama.touched}} <br />
+nama pristine: {{nama.pristine}} <br />
+nama dirty: {{nama.dirty}} <br />
+
+<h3>Status form Anda</h3>
+valid: {{myForm.valid}} -->
+
+<h1>Reactive Form</h1>
+
+<body style="background-color: yellow">
+    
+  <!--NAMA-->
+  <form (ngSubmit)="submit2()" [formGroup]="myReactiveForm">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Name :</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" formControlName="nama" placeholder="Your Name">
+      </div>
+      <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.required && nama.touched">
+        Name is required
+      </div>
+      <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.pattern">
+        Name must be alphabet
+      </div>
+      <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.minlength && nama.touched">
+        Name must be at least 5 characters
+      </div>
+      <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.maxlength && nama.touched">
+        Name must be max 20 characters
+      </div>
+    </div>
+
+    <!--FACULTY-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Faculty: </label>
+        <div class = "col-sm-10">
+        <select class="col-sm-12 col-form-label" type="text" formControlName="faculty">
+          <option value= "" [selected]="true" [disabled]="true"> Select... </option>
+          <option value="Ekonomi">Ekonomi</option>
+          <option value="Seni Rupa">Seni Rupa</option>
+          <option value="Teknik">Teknik</option>
+          <option value="Sastra">Sastra</option>
+          <option value="Sosial">Ilmu Sosial dan Politik</option>
+          <option value="Pendidikan">Pendidikan</option>
+        </select>
+      </div>
+    </div>
+
+    <!---NIM-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">NIM: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" formControlName="nim" placeholder="Input your NIM">
+      </div>
+      <div class="alert alert-warning" role="alert" *ngIf="nim.errors?.required && nim.touched">
+        NIM is required
+      </div>
+      <div class="alert alert-warning" role="alert" *ngIf="nim.errors?.pattern">
+        NIM must be number
+      </div>
+    </div>
+
+
+    <!--ENRTY DATE-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Entry Date: </label>
+      <div class="col-sm-10">
+        <input type="date" class="form-control" formControlName="entrydate">
+        <div class="alert alert-warning" role="alert" *ngIf="entrydate.errors?.required && entrydate.touched">
+          Entry Date is required
+        </div>
+      </div>
+    </div>
+
+    <!--Birth Date-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Birth Date: </label>
+      <div class="col-sm-10">
+        <input type="date" class="form-control" formControlName="birthdate">
+        <div class="alert alert-warning" role="alert" *ngIf="birthdate.errors?.required && birthdate.touched">
+          Birth date is required
+        </div>
+      </div>
+    </div>
+
+    <!--ADDRESS-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Address: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" formControlName="address">
+        <div class="alert alert-warning" role="alert" *ngIf="address.errors?.required && address.touched">
+          Address is required
+        </div>
+      </div>
+    </div>
+
+    <!--NOTES-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Notes: </label>
+      <div class="col-sm-20">
+        <input type="text" class="form-control" formControlName="notes">
+      </div>
+    </div>
+
+    <!--PHONES-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Phones: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" formControlName="phones">
+        <div class="alert alert-warning" role="alert" *ngIf="phones.errors?.required && phones.touched">
+          Phones is required
+        </div>
+        <div class="alert alert-warning" role="alert" *ngIf="phones.errors?.pattern">
+          Phones must be number
+        </div>
+      </div>
+    </div>
+
+    <!--Email-->
+    <div class="form-group row">
+      <label class="col-sm-2" col-form-label>Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" formControlName="email" placeholder="Your E-Mail">
+        <div class="alert alert-warning" role="alert" *ngIf="email.errors?.email && email.touched">
+          E-Mail is required
+        </div>
+        <div class="alert alert-warning" role="alert" *ngIf="email.errors?.email">
+          E-Mail is invalid
+        </div>
+      </div>
+    </div>
+
+  <!--CHECK-->
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" formControlName="check">
+      <label class="form-check-label" for="exampleCheck1">I agree with the term and conditions...</label>
+    </div>
+
+<!--SUBMIT-->
+    <input type="submit" class="btn btn-primary" value="Submit" [disabled]="myReactiveForm.invalid">
+  </form>
+</body>
